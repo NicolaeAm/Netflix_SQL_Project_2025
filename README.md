@@ -143,3 +143,132 @@ LIMIT 10
 
 **Objective:**  Most active directors.
 
+### 7. Which actors appear most frequently in USA Movies on Netflix?
+
+```sql
+WITH american_movies AS (
+    SELECT
+		show_id,
+		casts
+    FROM netflix
+    WHERE country ILIKE '%United States%'
+      AND type_ = 'Movie'
+      AND casts IS NOT NULL
+      AND TRIM(casts) <> ''
+),
+actors AS (
+    SELECT
+		show_id,
+        TRIM(UNNEST(STRING_TO_ARRAY(casts, ','))) AS all_actor
+    FROM american_movies
+)
+SELECT
+	all_actor,
+    COUNT(*) AS total_movies
+FROM actors
+GROUP BY all_actor
+ORDER BY total_movies DESC
+LIMIT 10
+;
+```
+
+**Objective:**  Top 10 recurring actors.
+
+### 8. Which year had the highest number of new content added?
+
+```sql
+SELECT
+    EXTRACT(YEAR FROM new_date)::numeric AS year_added,
+    COUNT(*) AS yearly_content_added
+FROM (
+ 	 SELECT
+        show_id,
+        CASE
+            WHEN date_added IS NULL OR TRIM(date_added) = '' THEN NULL
+            WHEN date_added ~ '^[0-9]'
+                THEN TO_DATE(date_added, 'DD-Mon-YY')
+            ELSE
+                TO_DATE(TRIM(date_added), 'Month DD, YYYY')
+        END AS new_date
+    FROM netflix
+)  sub
+WHERE new_date IS NOT NULL
+GROUP BY year_added
+ORDER BY yearly_content_added DESC
+LIMIT 3
+;
+```
+
+**Objective:**  Peak years for new content.
+
+### 9. Find how many movies actor 'Samuel L. Jackson' appeared in last 20 years?
+
+ ```sql
+SELECT
+	COUNT(*) AS total_movies_last_20
+FROM (
+	SELECT
+		TRIM(UNNEST(STRING_TO_ARRAY(casts, ','))) AS total_actors,
+		release_year
+	FROM netflix  
+	WHERE type_ = 'Movie'
+		AND casts IS NOT NULL
+		AND TRIM(casts) <> ''
+	) AS sub
+			
+WHERE
+	total_actors Ilike 'Samuel L. Jackson' 
+	AND release_year >= EXTRACT(YEAR FROM CURRENT_DATE) - 20
+;
+```
+
+**Objective:**  Actor’s Netflix presence.
+
+### 10. Top 5 countries that contributed the most new content in the last 5 years?
+
+```sql
+WITH contribution AS (
+    SELECT
+        show_id,
+        CASE
+            WHEN date_added IS NULL OR TRIM(date_added) = '' THEN NULL
+            WHEN date_added ~ '^[0-9]'
+                THEN TO_DATE(date_added, 'DD-Mon-YY')
+            ELSE
+                TO_DATE(TRIM(date_added), 'Month DD, YYYY')
+        END AS new_date,
+        country
+    FROM netflix
+),
+recent AS (
+    SELECT
+        show_id,
+        UNNEST(STRING_TO_ARRAY(country, ',')) AS new_country,
+        new_date
+    FROM contribution
+    WHERE new_date >= CURRENT_DATE - INTERVAL '5 years'
+      AND country IS NOT NULL AND TRIM(country) <> ''
+)
+SELECT
+    new_country AS country,
+    COUNT(*) AS total_content
+FROM recent
+GROUP BY new_country
+ORDER BY total_content DESC
+LIMIT 5
+;
+```
+
+**Objective:** Recent content trends.
+
+### 11. Count the number of content items in each genre for the United States?
+
+```sql
+SELECT 
+	UNNEST(STRING_TO_ARRAY(listed_in, ',')) as genre,
+	COUNT(show_id) as total_content
+FROM netflix
+WHERE country iLIKE '%United States%'
+GROUP BY 1
+ORDER BY 2 DESC;
+
