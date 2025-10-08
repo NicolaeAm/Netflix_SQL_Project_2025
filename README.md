@@ -69,4 +69,77 @@ FROM netflix
 ```
 
 **Objective:** Movie release trends.
- 
+
+### 3. What are the top 10 countries contributing the most content?
+
+```sql
+SELECT  
+	UNNEST(STRING_TO_ARRAY(country, ',')) AS new_country,
+	COUNT(*) AS total_contributing
+FROM netflix
+GROUP BY new_country
+ORDER BY total_contributing DESC 
+LIMIT  10
+;
+```
+
+ **Objective:** Top contributing countries.
+
+ ### 4. Identify the longest movie in the  USA?
+
+```sql
+SELECT 
+title,
+duration,
+type_,
+FROM netflix
+WHERE 
+	type_ = 'Movie'
+	AND
+	duration = (SELECT MAX(duration) FROM netflix)
+	AND country = 'United States'
+;
+```
+
+ **Objective:** Longest runtime film in the USA.
+
+ ### 5. Find the most common rating for movies and TV shows?
+
+```sql
+SELECT  
+	type_,
+	rating
+FROM
+(
+	SELECT  
+			type_,
+			rating,
+			count(*), 
+			RANK() OVER(PARTITION BY type_ ORDER BY COUNT(*) DESC) as common_rating
+	FROM netflix
+	GROUP BY type_, rating
+	ORDER BY type_
+	)r
+WHERE common_rating = 1
+;
+```
+
+ **Objective:** Popular audience rating.
+
+ ### 6. Who are the top 10 most frequently featured directors on Netflix?
+
+```sql
+SELECT 
+	TRIM(director) AS director_name,
+	COUNT(*) AS total_titles
+FROM netflix
+WHERE director IS NOT NULL
+	AND TRIM(director) <> ''
+GROUP BY director_name 
+ORDER BY total_titles DESC
+LIMIT 10
+;
+```
+
+**Objective:**  Most active directors.
+
