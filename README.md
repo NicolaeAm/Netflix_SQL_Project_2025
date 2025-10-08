@@ -42,7 +42,31 @@ CREATE TABLE netflix
     description  VARCHAR(250)
 );
 ```
- 
+## Business Problem Statments & SQL Solutions
 
+### 1. How many total Movies and TV Shows are available on Netflix?
+``` sql
+SELECT 
+	type_,
+	COUNT(*) AS total_content
+FROM netflix
+GROUP BY type_
+;
+```
 
+**Objective:** Distribution between Movies and TV Shows.
+
+### 2. How many movies were  released in 2022?
+```sql
+SELECT
+	COUNT(*) AS total_released_2022
+FROM netflix
+	WHERE 
+		type_ = 'Movie'
+		AND
+		release_year = 2022
+;
+```
+
+**Objective:** Movie release trends.
  
