@@ -317,12 +317,13 @@ LIMIT 5
 - Popular genres in the USA include Dramas, Documentaries, and Comedies.
 
 ## Conclusion
-
+'''
 	This project highlights how structured SQL analysis can translate raw datasets into actionable business intelligence — offering a clear, data-driven understanding of Netflix’s evolving content strategy.
-
+'''
 ## Autor - Nicolae 
+'''
 	This project is part of my data analytics portfolio, showcasing the SQL skills essential for data analyst roles — including data cleaning, transformation, and insight generation through real-world business questions.
-
+'''
 
 
 
