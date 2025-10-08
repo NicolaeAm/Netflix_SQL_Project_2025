@@ -25,7 +25,7 @@ By leveraging SQL queries, we extract insights such as:
 
 ## Dataset Schema
 
- ``sql 
+ ```sql 
 CREATE TABLE netflix
 (
     show_id      VARCHAR(15),
