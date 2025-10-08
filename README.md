@@ -270,5 +270,54 @@ SELECT
 FROM netflix
 WHERE country iLIKE '%United States%'
 GROUP BY 1
-ORDER BY 2 DESC;
+ORDER BY 2 DESC
+;
+```
+
+**Objective:** Most popular genres.
+
+### 12. Find each year and the average number of content releases in the USA on Netflix?
+   --Return the top 5 years with the highest avg content release! 
+
+```sql
+SELECT 
+	country,
+    EXTRACT(YEAR FROM new_date) AS year,
+    COUNT(*) AS yearly_content,
+	ROUND(
+	COUNT(*)::numeric/(SELECT COUNT(*)::numeric FROM netflix WHERE country = 'United States') * 100
+	,2) AS avg_content_per_yer
+FROM (
+    SELECT 
+        n.*,
+        CASE
+            WHEN date_added ~ '^[0-9]' 
+                THEN TO_DATE(date_added, 'DD-Mon-YY')
+            ELSE 
+                TO_DATE(TRIM(date_added), 'Month DD, YYYY')
+        END AS new_date
+    FROM netflix n
+    WHERE country = 'United States'
+) sub
+GROUP BY year, country
+ORDER BY yearly_content DESC
+LIMIT 5
+;
+```
+
+**Objective:** Top content years.
+
+## Insights & Findings
+
+- Netflix hosts 6130 numbers of Movie and 2675 TV Shows.
+- 
+
+
+
+
+
+
+
+
+
 
