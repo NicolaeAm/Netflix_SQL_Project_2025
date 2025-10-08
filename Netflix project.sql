@@ -41,7 +41,7 @@ FROM netflix
 GROUP BY type_
 ;
 
---2.How many movies released in 2022 year?
+--2.How many movies were released in 2022?
 
 SELECT
 	COUNT(*) AS total_released_2022
@@ -63,7 +63,7 @@ ORDER BY total_contributing DESC
 LIMIT  10
 ;
 
---4.Identify the longest movie in USA?
+--4.Identify the longest movie in the USA?
 
 SELECT 
 title,
@@ -157,7 +157,7 @@ GROUP BY year_added
 ORDER BY yearly_content_added DESC
 LIMIT 3;
 
---8.Find how many movies actor 'Samuel L. Jackson' appeared in last 20?
+--9.Find how many movies actor 'Samuel L. Jackson' appeared in last 20 years?
  
 SELECT
 	COUNT(*) AS total_movies_last_20
@@ -176,7 +176,7 @@ WHERE
 	AND release_year >= EXTRACT(YEAR FROM CURRENT_DATE) - 20
 ;
 
---9. Top 5 countries contributed the most new content in the last 5 years?
+--10. Top 5 countries that contributed the most new content in the last 5 years?
 
 WITH contribution AS (
     SELECT
@@ -208,7 +208,7 @@ GROUP BY new_country
 ORDER BY total_content DESC
 LIMIT 5;
 
---10.Count the number of content items in the each genre for United States?
+--11.Count the number of content items in each genre for the United States?
 
 SELECT 
 	UNNEST(STRING_TO_ARRAY(listed_in, ',')) as genre,
@@ -219,8 +219,8 @@ GROUP BY 1
 ORDER BY 2 DESC;
 
 
---11.Find each year and the average numbers of content realease in USA on netflix?
-   --Retun top 5 years with highest avg content realease! 
+--12.Find each year and the average number of content releases in the USA on Netflix?
+   --Retun the top 5 years with the highest avg content release! 
 SELECT 
 	country,
     EXTRACT(YEAR FROM new_date) AS year,
@@ -258,4 +258,5 @@ LIMIT 5
 	
 	
 	
+
 	
