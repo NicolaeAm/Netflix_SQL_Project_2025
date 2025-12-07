@@ -274,6 +274,9 @@ ORDER BY 2 DESC
 ;
 ```
 
+
+
+
 **Objective:** Most popular genres.
 
 ### 12. Find each year and the average number of content releases in the USA on Netflix?
