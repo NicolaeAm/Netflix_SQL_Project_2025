@@ -11,12 +11,12 @@ By exploring thousands of Movies and TV Shows, the goal is to uncover patterns, 
 
   The objective of this project is to analyze Netflix’s catalog of Movies and TV Shows using SQL.
 By leveraging SQL queries, we extract insights such as:
- -Total number of movies and shows available
- -Country-wise contributions
- -Understand movie duration and rating patterns
- -Top actors, directors, and genres
- -Yearly content additions
- -Build a KPI-driven Power BI dashboard for stakeholders.
+ - Total number of movies and shows available
+ - Country-wise contributions
+ - Understand movie duration and rating patterns
+ - Top actors, directors, and genres
+ - Yearly content additions
+ - Build a KPI-driven Power BI dashboard for stakeholders.
 
 ## Dataset Information
   The dataset used in this project is the Netflix Titles Dataset, the Public Kaggle Dataset.
@@ -323,6 +323,8 @@ LIMIT 5
 
 The Power BI report provides an executive summary of Netflix’s content strategy through KPIs and interactive visuals.
 
+![Power_BI_Dashboard](https://github.com/NicolaeAm/Netflix_SQL_Project_2025/blob/main/Power_BI_Netflix_Project_2025.jpg).
+
 ## KPI Cards (DAX Measures)
 - Total Titles
 - Total Movies
@@ -341,6 +343,28 @@ The Power BI report provides an executive summary of Netflix’s content strateg
 - Rating distribution by content type
 - Movie duration distribution
 
+![PowerBI File:](https://github.com/NicolaeAm/Netflix_SQL_Project_2025/blob/main/Netflix_PowerBI_Project.pbix).
+
+## DAX Example Measures
+ - Average Movie Duration
+```Avg Movie Duration =
+AVERAGEX(
+    FILTER(
+        Netflix,
+        Netflix[type_] = "Movie"
+            && CONTAINSSTRING(Netflix[duration], "min")
+    ),
+    VALUE(SUBSTITUTE(Netflix[duration], " min", ""))
+)
+```
+- Content Added in Last 5 Years
+  
+``` Titles Last 5 Years =
+CALCULATE(
+    COUNT(Netflix[show_id]),
+    YEAR(Netflix[date_added]) >= YEAR(TODAY()) - 5
+)
+```
 
 ## Conclusion
 
