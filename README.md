@@ -1,10 +1,10 @@
-# Netflix Movies and TV Shows Data Analysis using SQL
+# Netflix Movies and TV Shows Data Analysis using SQL & Power BI
 
 ![Netflix_Logo](https://github.com/NicolaeAm/Netflix_SQL_Project_2025/blob/main/Netflix_Logo_Print_FourColorCMYK.png)
 
 ## Project Overview 
 
-  This project provides an in-depth analysis of Netflix’s global content catalog using SQL.
+  This project provides an in-depth analysis of Netflix’s global content catalog using PostgreSQL for data analysis and Power BI for visualization and reporting.
 By exploring thousands of Movies and TV Shows, the goal is to uncover patterns, trends, and insights that can help understand Netflix’s content strategy — such as which countries produce the most content, what genres are dominant, and how content growth has evolved.
 
 ## Project Objective
@@ -13,10 +13,10 @@ By exploring thousands of Movies and TV Shows, the goal is to uncover patterns, 
 By leveraging SQL queries, we extract insights such as:
  -Total number of movies and shows available
  -Country-wise contributions
- -Common ratings
+ -Understand movie duration and rating patterns
  -Top actors, directors, and genres
  -Yearly content additions
- -And other key business metrics about Netflix’s content trends.
+ -Build a KPI-driven Power BI dashboard for stakeholders.
 
 ## Dataset Information
   The dataset used in this project is the Netflix Titles Dataset, the Public Kaggle Dataset.
@@ -319,13 +319,37 @@ LIMIT 5
 - Samuel L. Jackson has appeared in 13 movies on Netflix within the last two decades.
 - Popular genres in the USA include Dramas, Documentaries, and Comedies.
 
+## Power BI Dashboard
+
+The Power BI report provides an executive summary of Netflix’s content strategy through KPIs and interactive visuals.
+
+## KPI Cards (DAX Measures)
+- Total Titles
+- Total Movies
+- Total TV Shows
+- Average Movie Duration (Minutes)
+- Titles Added in the Last 5 Years
+- Average Years Since Release
+- Countries with Content
+- Average Genres per Title
+
+## Visualizations (6 Charts)
+- Movies vs TV Shows distribution
+- Content growth by year
+- Top 10 countries by content volume
+- Genre distribution
+- Rating distribution by content type
+- Movie duration distribution
+
+
 ## Conclusion
 
-This project highlights how structured SQL analysis can translate raw datasets into actionable business intelligence — offering a clear, data-driven understanding of Netflix’s evolving content strategy.
+This project demonstrates how SQL-driven data analysis and Power BI visualization work together to solve real business problems.By combining structured querying, DAX-based KPIs, and interactive dashboards, the project delivers insights that support content strategy, regional analysis, and catalog planning.
 
 ## Autor - Nicolae 
 
-This project is part of my data analytics portfolio, showcasing the SQL skills essential for data analyst roles — including data cleaning, transformation, and insight generation through real-world business questions.
+This project is part of my data analytics portfolio, showcasing SQL and Power BI skills relevant to data analyst roles. 
+
 
 
 
